@@ -1,4 +1,3 @@
-//test
 import toxi.processing.*;
 import toxi.geom.*;
 import toxi.math.*;
@@ -8,8 +7,8 @@ import processing.pdf.*;
 import controlP5.*;
 import remixlab.proscene.*;
 
-import processing.video.*;
-MovieMaker mm;  // Declare MovieMaker object
+//import processing.video.*;
+//MovieMaker mm;  // Declare MovieMaker object
 
 
 boolean applet=true;
@@ -108,18 +107,18 @@ void setup() {
   font=loadFont("GothamNightsNormal-40.vlw");
   msgFont=loadFont("GothamNightsNormal-25.vlw");
   PPI=72;
-    try {
-      quicktime.QTSession.open();
-    } 
-    catch (quicktime.QTException qte) { 
-      qte.printStackTrace();
-    }
+//  try {
+//    quicktime.QTSession.open();
+//  } 
+//  catch (quicktime.QTException qte) { 
+//    qte.printStackTrace();
+//  }
   size(1000, 800);
   smooth();
   gfx=new ToxiclibsSupport(this);
 
-    mm = new MovieMaker(this, width, height, "test.mov", 
-    30, MovieMaker.ANIMATION, MovieMaker.LOSSLESS);
+//  mm = new MovieMaker(this, width, height, "test.mov", 
+//  30, MovieMaker.ANIMATION, MovieMaker.LOSSLESS);
 
   controlP5 = new ControlP5(this);
   if (laser) {
@@ -136,17 +135,10 @@ void setup() {
   scene.camera().setPosition(new PVector(width/2, height/2, 1000));
   scene.camera().setSceneCenter(new PVector(width/2, height/2, 0));
   scene.camera().lookAt(new PVector(width/2, height/2, 0));
-  //    scene.camera().setPosition(new PVector(400, 400, 1000));
-  //  scene.camera().setSceneCenter(new PVector(800/2, 800/2, 0));
-  //  scene.camera().lookAt(new PVector(400, 400, 0));
-
   scene.camera().setUpVector(new PVector(0, 1, 0));
-
-  //    pdf = new PDFToWeb(this);
 }
 
 void draw() {
-  //  println( scene.camera().position());
   background(bgColor);
   drawScale=(72/PPI);//THIS SCALES THE PIXELS
   stroke(0);
@@ -221,7 +213,7 @@ void draw() {
     output=false;
     msgOn=false;
   }
-  mm.addFrame();  // Add window's pixels to movie
+//  mm.addFrame();  // Add window's pixels to movie
 }
 
 
@@ -248,7 +240,6 @@ void mousePressed() {
       update=true;
     }
     else {
-      //      println("Point not in Bounds");
     }
   }
   else {
@@ -266,15 +257,9 @@ float inchToPixel(float inch) {
 
 
 void keyPressed() {
-
   if (key == ' ') {
-       mm.finish();  // Finish the movie if space bar is pressed!
+//    mm.finish();  // Finish the movie if space bar is pressed!
   }
-  //  if (key == 's') {
-  //    save("ack.txt");  // Finish the movie if space bar is pressed!
-  //  }
-  //  if (key == 'l') {
-  //  }
 }
 
 void gui() {
@@ -337,23 +322,15 @@ void sendMsg(String inMsg) {
 }
 
 boolean save() {
-  if (applet) {
     return(saveApplet());
-  }
-  else {
-    saveApp();
-    return true;
-  }
 }
 
 boolean saveApplet() {
-  //  println(fileName);
   if (fileName=="") {
     sendMsg("We need a file name before we can save it ...");
     return false;
   }
   else {
-    //  String fname=fileName;
     sendMsg("Yeah, let's save this one as "+fileName);
 
     String[] writeString= new String[9];
@@ -393,66 +370,61 @@ boolean saveApplet() {
     for (String s : lines) {
       s.replaceAll("<br>", "");
     }
-    if(lines[0] != null){
-       println(lines[0]);
-       sendMsg(lines[0]);
-       return lines[0].equals("I saved you!")? true:false;
-    }else{
+    if (lines[0] != null) {
+      println(lines[0]);
+      sendMsg(lines[0]);
+      return lines[0].equals("I saved you!")? true:false;
+    }
+    else {
       println("Null");
       return false;
     }
   }
 }
 
-void saveApp() {
-  println(fileName);
-  if (fileName=="") {
-    sendMsg("We need a file name before we can save it ...");
-  }
-  else {
-    //  String fname=fileName;
-    sendMsg("Yeah, let's save this one as "+fileName);
-
-    String[] writeString= new String[9];
-
-    List<String> ptsStrings=new ArrayList<String>();
-    for (Vec2D p: pts) {
-      ptsStrings.add(p.toString());
-    }
-    String[] arrayOfPts=ptsStrings.toArray(new String[ptsStrings.size()]); 
-    String allPts;
-    allPts=join(arrayOfPts, ";");
-
-    List<String> boundStrings=new ArrayList<String>();
-    for (Vec2D bp: boundPts) {
-      boundStrings.add(bp.toString());
-    }
-    String[] arrayOfBoundPts=boundStrings.toArray(new String[boundStrings.size()]); 
-    String allBoundPts;
-    allBoundPts=join(arrayOfBoundPts, ";");
-
-    writeString[0]=allPts;
-    writeString[1]=allBoundPts;
-    writeString[2]=nf(matThick, 0, 0);
-    writeString[3]=nf(depth, 0, 0);
-    writeString[4]=nf(cpLenModA, 0, 0);
-    writeString[5]=nf(cpLenModB, 0, 0);
-    writeString[6]=nf(boundScale, 0, 0);
-    writeString[7]=nf(scaleFactor, 0, 0);
-    writeString[8]=nf(PPI, 0, 0);
-
-    saveStrings(fileName, writeString);
-
-  }
-}
+//void saveApp() {
+//  println(fileName);
+//  if (fileName=="") {
+//    sendMsg("We need a file name before we can save it ...");
+//  }
+//  else {
+//    //  String fname=fileName;
+//    sendMsg("Yeah, let's save this one as "+fileName);
+//
+//    String[] writeString= new String[9];
+//
+//    List<String> ptsStrings=new ArrayList<String>();
+//    for (Vec2D p: pts) {
+//      ptsStrings.add(p.toString());
+//    }
+//    String[] arrayOfPts=ptsStrings.toArray(new String[ptsStrings.size()]); 
+//    String allPts;
+//    allPts=join(arrayOfPts, ";");
+//
+//    List<String> boundStrings=new ArrayList<String>();
+//    for (Vec2D bp: boundPts) {
+//      boundStrings.add(bp.toString());
+//    }
+//    String[] arrayOfBoundPts=boundStrings.toArray(new String[boundStrings.size()]); 
+//    String allBoundPts;
+//    allBoundPts=join(arrayOfBoundPts, ";");
+//
+//    writeString[0]=allPts;
+//    writeString[1]=allBoundPts;
+//    writeString[2]=nf(matThick, 0, 0);
+//    writeString[3]=nf(depth, 0, 0);
+//    writeString[4]=nf(cpLenModA, 0, 0);
+//    writeString[5]=nf(cpLenModB, 0, 0);
+//    writeString[6]=nf(boundScale, 0, 0);
+//    writeString[7]=nf(scaleFactor, 0, 0);
+//    writeString[8]=nf(PPI, 0, 0);
+//
+//    saveStrings(fileName, writeString);
+//  }
+//}
 
 void load() {
-  if (applet) {
     loadApplet();
-  }
-  else {
-    loadApp();
-  }
 }
 
 void loadApplet() {
@@ -532,71 +504,71 @@ void loadApplet() {
   }
 }
 
-void loadApp() {
-  String [] lines;
-  if (fileName=="") {
-    sendMsg("Ummm, what file did you want to load ...");
-  }
-  else {
-    Pattern p=Pattern.compile("\\d+.\\d+");
-    pts.clear();
-    boundPts.clear();
-    lines = loadStrings(fileName);
-    if (lines==null) {
-      sendMsg("Oops something is wrong with your file, check you spelling ...");
-      return;
-    }
-    else {
-      sendMsg("Sweet, we loaded you file named "+fileName);
-    }
-    //the first line contais the pts
-    List<String> inPts=Arrays.asList(split(lines[0], ';'));
-    for (String s: inPts) {
-      Matcher m =p.matcher(s);
-      Float[] vals=new Float[2];
-      int x=0;
-      while (m.find ()) {
-        vals[x]= float(m.group());
-        x++;
-      }
-      pts.add(new Vec2D(vals[0], vals[1]));
-    }
-    //the second line is the boundry
-    List<String> inBoundPts=Arrays.asList(split(lines[1], ';'));
-    for (String s: inBoundPts) {
-      Matcher m =p.matcher(s);
-      Float[] vals=new Float[2];
-      int x=0;
-      while (m.find ()) {
-        vals[x]= float(m.group());
-        x++;
-      }
-
-      boundPts.add(new Vec2D(vals[0], vals[1]));
-    }
-    bound = new Polygon2D(boundPts);
-    //The Thrid line is 
-    matThick=float(lines[2]);
-    controlP5.controller("slidMatThick").setValue(matThick);
-
-    depth=float(lines[3]);
-    controlP5.controller("slidDepth").setValue(depth);
-
-    cpLenModA=float(lines[4]);
-    controlP5.controller("slidCpLenA").setValue(cpLenModA);
-
-    cpLenModB=float(lines[5]);
-    controlP5.controller("slidCpLenB").setValue(cpLenModB);
-
-    boundScale=float(lines[6]);
-
-    scaleFactor=float(lines[7]);
-    controlP5.controller("slidScale").setValue(scaleFactor);
-    PPI=float(lines[8]);
-    butResetcam();
-    update();
-    render();
-    drawBound();
-  }
-}
+//void loadApp() {
+//  String [] lines;
+//  if (fileName=="") {
+//    sendMsg("Ummm, what file did you want to load ...");
+//  }
+//  else {
+//    Pattern p=Pattern.compile("\\d+.\\d+");
+//    pts.clear();
+//    boundPts.clear();
+//    lines = loadStrings(fileName);
+//    if (lines==null) {
+//      sendMsg("Oops something is wrong with your file, check you spelling ...");
+//      return;
+//    }
+//    else {
+//      sendMsg("Sweet, we loaded you file named "+fileName);
+//    }
+//    //the first line contais the pts
+//    List<String> inPts=Arrays.asList(split(lines[0], ';'));
+//    for (String s: inPts) {
+//      Matcher m =p.matcher(s);
+//      Float[] vals=new Float[2];
+//      int x=0;
+//      while (m.find ()) {
+//        vals[x]= float(m.group());
+//        x++;
+//      }
+//      pts.add(new Vec2D(vals[0], vals[1]));
+//    }
+//    //the second line is the boundry
+//    List<String> inBoundPts=Arrays.asList(split(lines[1], ';'));
+//    for (String s: inBoundPts) {
+//      Matcher m =p.matcher(s);
+//      Float[] vals=new Float[2];
+//      int x=0;
+//      while (m.find ()) {
+//        vals[x]= float(m.group());
+//        x++;
+//      }
+//
+//      boundPts.add(new Vec2D(vals[0], vals[1]));
+//    }
+//    bound = new Polygon2D(boundPts);
+//    //The Thrid line is 
+//    matThick=float(lines[2]);
+//    controlP5.controller("slidMatThick").setValue(matThick);
+//
+//    depth=float(lines[3]);
+//    controlP5.controller("slidDepth").setValue(depth);
+//
+//    cpLenModA=float(lines[4]);
+//    controlP5.controller("slidCpLenA").setValue(cpLenModA);
+//
+//    cpLenModB=float(lines[5]);
+//    controlP5.controller("slidCpLenB").setValue(cpLenModB);
+//
+//    boundScale=float(lines[6]);
+//
+//    scaleFactor=float(lines[7]);
+//    controlP5.controller("slidScale").setValue(scaleFactor);
+//    PPI=float(lines[8]);
+//    butResetcam();
+//    update();
+//    render();
+//    drawBound();
+//  }
+//}
 

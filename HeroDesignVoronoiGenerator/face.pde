@@ -26,17 +26,14 @@ public class Face {
     Line2D.LineIntersection isec=l1.intersectLine(l2);
 
     if (isec.getType()==Line2D.LineIntersection.Type.INTERSECTING) {
-      //              println("Cross");
     }
     else {
-      //            println("ick");
     }
     
   }
 
 
   public boolean isClockwise() {
-
     return face.isClockwise();
   }
 }

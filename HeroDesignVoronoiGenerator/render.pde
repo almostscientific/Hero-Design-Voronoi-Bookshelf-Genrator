@@ -5,7 +5,6 @@ void render() {
   scene.beginDraw();
 
   G3.pushMatrix();
-//  G3.translate(-400, -400);
  
   G3.background(bgColor);
   G3.smooth();

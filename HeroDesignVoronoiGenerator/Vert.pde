@@ -34,10 +34,6 @@ public class Vert {
       innerVertexEdges.add(new innerVertexEdge(v, thisLine, maxDist));
     }
 
-    //    for (Line2D l : linesOfV) {
-    //      innerVertexEdges.add(new innerVertexEdge(v, l));
-    //    }
-    //    println("___");
   }
 
   public void getDistanceFromV() {

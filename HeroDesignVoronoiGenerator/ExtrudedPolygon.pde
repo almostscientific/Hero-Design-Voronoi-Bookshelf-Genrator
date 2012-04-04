@@ -1,3 +1,5 @@
+//ExtrudedPolygon - constructed with a polygon, a height of extrusion, cap on/off, and a offset
+
 public class ExtrudedPolygon {
   Polygon2D baseShape;
   float extrudeH;
@@ -47,10 +49,7 @@ public class ExtrudedPolygon {
     for (int i=0; i<baseVecs3D.size(); i++) {
       int m=baseVecs3D.size();
       Vec3D v1, v2, v3=new Vec3D();
-      //      Vec3D v2=new Vec3D();
-      //      Vec3D v3=new Vec3D();
-
-      v1= baseVecs3D.get(i).add(offsetVec);//the base with its base offset
+     v1= baseVecs3D.get(i).add(offsetVec);//the base with its base offset
       v2= baseVecs3D.get(i).add(offsetVec).add(extrudeVec);//the base with base offset and extrude
       v3= baseVecs3D.get((i+1)%m).add(offsetVec);//the next point of the base with offset modulo the size
       mesh.addFace(v1, v2, v3);

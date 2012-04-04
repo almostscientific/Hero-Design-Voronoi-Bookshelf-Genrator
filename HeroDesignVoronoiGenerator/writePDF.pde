@@ -10,7 +10,6 @@ void writePDF() {
     float margin=0;
     if (laser) {
       margin=inchToPixel(marg);
-      //    println("margin "+margin);
     }
     if (router) {
       margin=inchToPixel(2*bitD+marg);
@@ -24,12 +23,9 @@ void writePDF() {
       float hMod = laser ? 1:0.5;
       float tmpHeight=inchToPixel(depth)+(2*(inchToPixel(matThick*hMod)))+margin;
       float tmpWidth=lineLength+(margin*drawScale);
-      //Rect rectToPack=new Rect(tmpHeight*drawScale, tmpWidth);
-      //rectToPack.width=+margin;
-      //rectToPack.heig=+margin;
+      ;
       orginalRects.add( new MyRect(tmpHeight*drawScale, tmpWidth, id) );//the width has allredy been scaled at this point
       id++;
-      //Each flatFace is paird with a Rect that is packed in an order se=pecificed by the packing order
     }
     for (FlatFace ff: flatFaces) {
       List<Polygon2D> tmp = new ArrayList<Polygon2D>();
@@ -78,9 +74,8 @@ void writePDF() {
     PackedRects packedRects=new PackedRects(orginalRects, order);
 
 
-    String outFile=fileName+"_output.pdf";
-//    PGraphics pdf = createGraphics((int)(inchToPixel(rawMatWidth)*drawScale), (int)(inchToPixel(rawMatHeight)*drawScale), PDF, outFile);
-    PGraphics pdf = createGraphics((int)(inchToPixel(rawMatWidth)*drawScale), (int)(inchToPixel(rawMatHeight)*drawScale),  "InMemoryPGraphicsPDF");
+    //    String outFile=fileName+"_output.pdf";
+    PGraphics pdf = createGraphics((int)(inchToPixel(rawMatWidth)*drawScale), (int)(inchToPixel(rawMatHeight)*drawScale), "InMemoryPGraphicsPDF");
     beginRecord(pdf);
     gfx.setGraphics(pdf);
     pdf.noFill();
@@ -99,16 +94,11 @@ void writePDF() {
       pdf.popMatrix();
     }
     endRecord();
-//    InMemoryPGraphicsPDF impgpdfB = (InMemoryPGraphicsPDF) pdf;  // Get the real renderer
-//    byte[] pdfDataB = impgpdfB.getBytes();
-//    DataUpload duB=new DataUpload();
-//    duB.UploadBinaryData(fileName+"_Cut"+".pdf", "PDF", pdfDataB);
-//    println(duB.GetServerFeedback());
-             cutPath=writePDFToWeb(fileName+"_Cut"+".pdf",pdf);
+
+    cutPath=writePDFToWeb(fileName+"_Cut"+".pdf", pdf);
 
 
-//    String digFile=fileName+"_diagram.pdf";
-//    PGraphics pdfMap = createGraphics(width, height, PDF, digFile);
+
     PGraphics pdfMap = createGraphics(width, height, "InMemoryPGraphicsPDF");
     beginRecord(pdfMap);
     gfx.setGraphics(pdfMap);
@@ -119,12 +109,9 @@ void writePDF() {
       Line2D thisLine = new Line2D(e.a, e.b);
       gfx.line(thisLine);
       Vec2D midPt=thisLine.getMidPoint(); 
-      //      pdfMap.noFill();
       pdfMap.fill(255, 255, 255);
-      //      pdfMap.noStroke();
       String s=Integer.toString(i);
       String pre="L";
-      //      gfx.circle(midPt, textAscent());
       pdfMap.fill(orange);
       pdfMap.textFont(msgFont);
       pdfMap.textAlign(CENTER, CENTER);
@@ -142,16 +129,10 @@ void writePDF() {
       i++;
     }
     endRecord();      
-//    InMemoryPGraphicsPDF impgpdfA = (InMemoryPGraphicsPDF) pdfMap;  // Get the real renderer
-//    byte[] pdfDataA = impgpdfA.getBytes();
-//    DataUpload duA=new DataUpload();
-//    duA.UploadBinaryData(fileName+"_Map"+".pdf", "PDF", pdfDataA);
-//    println(duA.GetServerFeedback());
-         mapPath=writePDFToWeb(fileName+"_Map"+".pdf",pdfMap);
+
+    mapPath=writePDFToWeb(fileName+"_Map"+".pdf", pdfMap);
 
 
-//    String layFile=fileName+"_layout.pdf";
-    //     pdfLay = createGraphics((int)(inchToPixel(rawMatWidth)*drawScale), (int)(inchToPixel(rawMatHeight)*drawScale), PDF, layFile);
     PGraphics pdfLay = createGraphics((int)(inchToPixel(rawMatWidth)*drawScale), (int)(inchToPixel(rawMatHeight)*drawScale), "InMemoryPGraphicsPDF");
     beginRecord(pdfLay);
 
@@ -192,23 +173,20 @@ void writePDF() {
     }
     endRecord();
 
-//    InMemoryPGraphicsPDF impgpdf = (InMemoryPGraphicsPDF) pdfLay;  // Get the real renderer
-//    byte[] pdfData = impgpdf.getBytes();
-//    DataUpload du=new DataUpload();
-//    du.UploadBinaryData(fileName+"_Layout"+".pdf", "PDF", pdfData);
-//    println(du.GetServerFeedback());
-     layoutPath=writePDFToWeb(fileName+"_Layout"+".pdf",pdfLay);
-    
+
+    layoutPath=writePDFToWeb(fileName+"_Layout"+".pdf", pdfLay);
+
     gfx.setGraphics(g);
   }
   sendMsg("Done.");
   download=true;
 }
 
-String writePDFToWeb(String name, PGraphics thePDF){
-    InMemoryPGraphicsPDF impgpdf = (InMemoryPGraphicsPDF) thePDF;  // Get the real renderer
-    byte[] pdfData = impgpdf.getBytes();
-    DataUpload du=new DataUpload();
-    du.UploadBinaryData(name, "PDF", pdfData);
-    return du.GetServerFeedback();
+String writePDFToWeb(String name, PGraphics thePDF) {
+  InMemoryPGraphicsPDF impgpdf = (InMemoryPGraphicsPDF) thePDF;  // Get the real renderer
+  byte[] pdfData = impgpdf.getBytes();
+  DataUpload du=new DataUpload();
+  du.UploadBinaryData(name, "PDF", pdfData);
+  return du.GetServerFeedback();
 }
+

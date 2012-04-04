@@ -1,3 +1,5 @@
+// This is basicaly a rectangle with soem special methods use in the pack procedure.
+
 public class MyRect implements Cloneable, Comparable<MyRect> {
   //This is a recetangle that will be packed.
   Rect r;

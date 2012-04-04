@@ -1,10 +1,7 @@
 
 
 boolean  update() {  
-  //println("UPDATE");
   minPolyLen = matThick*5;
-//  laserKerf=inchToPixel(0.005);
-
   voronoi = new Voronoi();
   voronoi.addPoints(pts);
 
@@ -72,13 +69,11 @@ boolean checkPoly(Polygon2D poly) {
     polyLines.add(new Line2D(thisV, thatV));
   }
 
-  //  for (Line2D l : polyLines) {
   for (int i=0; i<polyLines.size(); i++) {
     Line2D thisLine = polyLines.get(i);
     Line2D thatLine = polyLines.get((i+1)%poly.vertices.size());
     //checks for min length
     if (thisLine.getLength()<inchToPixel(minPolyLen))  return false;
-    //    theta = thisLine
   }
 
   return true;

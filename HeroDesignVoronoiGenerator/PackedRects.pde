@@ -1,9 +1,9 @@
+//This class has all the orginal rects but in a difrent order and rotation.
+//This is a specific ordering of the orginal rects
+//this is class that contains all the shapes we need to pack
+// this class can pack the shapes and determin its fitness
+// this class can be mutated to varing degrees
 public class PackedRects {
-  //This class has all the orginal rects but in a difrent order and rotation.
-  //This is a specific ordering of the orginal rects
-  //this is class that contains all the shapes we need to pack
-  // this class can pack the shapes and determin its fitness
-  // this class can be mutated to varing degrees
 
     List<MyRect> rects = new ArrayList<MyRect>();//this is an individual list of rects that can be packed.
   List<Vec2D> rayVecs=new ArrayList<Vec2D>();
@@ -28,13 +28,9 @@ public class PackedRects {
 
     order=inOrder;
     rects.addAll(inRects);
-    //                    print("Packing///");
     pack();
     //    Collections.sort(brcntList, Collections.reverseOrder());
     //       println("ACLK "+boundBox.width);
-    if (kluge>0) {
-      //      println("Kluge "+kluge);
-    }
     evaluateFitness();
   }
 
@@ -45,9 +41,7 @@ public class PackedRects {
       yPos.add(r.py);
     }
     Collections.sort(yPos);
-    //    fitness=yPos.get(0);
     heightFit=yPos.get(0);
-    //     println("fitness "+fitness);
     Line2D topLine=getEdgeOfRect(boundBox, 0);
     topLine.splitIntoSegments(topLine.a, topLine.b, 10, rayVecs, true);
     for (Vec2D rv:rayVecs) {
@@ -70,7 +64,6 @@ public class PackedRects {
       totalRayLen+=rayIsecs.get(0);
     }
     float maxRayTotal=rayVecs.size()*height;
-    //    println(maxRayTotal + " " + totalRayLen + " " + (totalRayLen/maxRayTotal));
 
     areaFitness=(totalRayLen/maxRayTotal);
     fitness=(((heightFit/height)+areaFitness)/2)*100;
@@ -84,9 +77,7 @@ public class PackedRects {
     }
 
     if (kluge>0) {
-      //      fitness = 0;
     }
-    //    fitness=areaFitness*100;
   }
 
   float getFitness() {
@@ -101,19 +92,15 @@ public class PackedRects {
   }
 
   void pack() {
-
-    //    println("pack");
     //this implements Bottom Right packing
     //create the bounding rectangle
     boundingTopLeft = new Vec2D(0, 0);
     boundW=inchToPixel(rawMatWidth)*drawScale;
     boundH=inchToPixel(rawMatHeight)*drawScale;
-    //      println("PACK W"+boundW+" H "+boundH);
 
     boundingBottomRight = new Vec2D(boundW, boundH);
 
     boundBox=new Rect(boundingTopLeft, boundingBottomRight );
-    //      println("makgin bb "+boundBox.width + " " + boundBox.height);
 
     for (int i=0; i<rects.size(); i++) {
       recursionKlugeCount=0;
@@ -121,7 +108,6 @@ public class PackedRects {
       recursionKlugeY=0;
       int o=order.order.get(i)[0];
       int r=order.order.get(i)[1];
-      //      println("packing: "+i+ " o= "+o+ " r= "+r); 
       brcnt=0;
       brPlacment(rects.get(o), i, r);
       brcntList.add(brcnt);
@@ -131,13 +117,11 @@ public class PackedRects {
   void brPlacment(MyRect inRect, int recNum, int rot) {
     //    print("o");
     if (brcnt>10) {
-      println("BARf");
       kluge=1;
       return;
     }
     brcnt++;
     if (rot==1) {
-      //      println("!");
       inRect.rotation=true;
       inRect.updateRect();
     }
@@ -169,14 +153,9 @@ public class PackedRects {
     inRect.translate(-gap, -gap);
 
     while (!checkForTouching (inRect, recNum)) {
-      //            print("+");
       inRect.translate(0, inc);
-
-      //      if (inRect.py > inchToPixel(rawMatHeight)) {
       if (inRect.py > inchToPixel(rawMatHeight)*drawScale) {
-
         kluge=3;
-        println("Kluge3");
         return;
       }
     }
@@ -187,7 +166,6 @@ public class PackedRects {
       //      if (inRect.px > inchToPixel(rawMatWidth)) {
       if (inRect.px > inchToPixel(rawMatWidth)*drawScale) {
         kluge=4;
-        println("Kluge4");
         return;
       }
     }

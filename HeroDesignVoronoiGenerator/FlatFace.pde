@@ -1,3 +1,4 @@
+//FlatFace takes a lenght for one of the edges and creates a flatend and notched polygon 
 public class FlatFace {
 
   Polygon2D flatFace = new Polygon2D();  

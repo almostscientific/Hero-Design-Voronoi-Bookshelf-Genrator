@@ -1,5 +1,6 @@
-public class PackingOrder {
   // this class can mate and evolve.
+
+public class PackingOrder {
 
   List<int[]> order = new ArrayList<int[]>();
   int len;
@@ -39,9 +40,7 @@ public class PackingOrder {
     for (int[] gene : order) {
       if (random(1) < rate) {
         gene[1] = (gene[1]==0) ? 1 : 0;
-//                       println("Mutated");
       }
-      //      println(gene[1]);
     }
   }
 
