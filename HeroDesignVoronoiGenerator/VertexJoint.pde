@@ -70,7 +70,6 @@ public class VertexJoint {
   }
 
   List<Polygon2D> getTabsReflectd() {
-    //       List<Polygon2D> returnList=new ArrayList<Polygon2D>();
     List<Polygon2D> reflectedTabs=new ArrayList<Polygon2D>();
     Vec2D N =new Vec2D(0, 1);
     Vec2D outterBoundVec=outter.getBounds().getCentroid();
@@ -82,9 +81,6 @@ public class VertexJoint {
         tmpPoly.add(polyV.sub(V.v).sub(deltaVec).getReflected(N));
       }
 
-      //      for(Vec2D v:tmpPoly){
-      //      v.sub(V.v).sub(deltaVec);
-      //      }
       reflectedTabs.add(tmpPoly.scale(drawScale));
     }
     return reflectedTabs;
@@ -95,31 +91,23 @@ public class VertexJoint {
   }
 
   void renderJoint() {
-
     for (Polygon2D tab : tabs) {
-      //      stroke(255, 0, 0);
       noFill();
       stroke(blue);
-
       gfx.polygon2D(tab);
       if (!outter.isClockwise()) {
         outter.flipVertexOrder();
       }
       int x = outter.isClockwise() ? 255 : 0;
-      //      stroke(x, 0, 255);
       stroke(blue);
       gfx.polygon2D(outter);
     }
 
-    //    for (Vec2D p : allOutterPoihts) {
-    //      //    gfx.circle(p,10);
-    //    }
   }
 
 
 
   void buildJoint() {
-    //    println("buildJoint "+ V.innerVertexEdges.size());
     int iveIndex=0;
     for (innerVertexEdge ive : V.innerVertexEdges) {
       //build the notches
@@ -137,6 +125,7 @@ public class VertexJoint {
         outterNotchLine=thisLine.offsetAndGrowBy(inchToPixel(notchH), inchToPixel(notchW), thisNorm);
       }
       outterNotchLine.set(outterNotchLine.a.add(V.v), outterNotchLine.b.add(V.v));
+      //Now we build the tabs
       a= outterNotchLine.a;
       b= outterNotchLine.b;
       c= b.add(outterNotchLine.getNormal().normalize().getInverted().scale(inchToPixel(notchH)));
@@ -214,9 +203,6 @@ public class VertexJoint {
       if (outterPointsSets.size()==2) {
       }
       else {
-        //        println("matThick= "+(matThick));
-        //        println("cpLen= "+inchToPixel(matThick)*(25/inchToPixel(matThick)));
-        //        println();
         cpLen =inchToPixel(matThick)*cpLenModA;//25;
       }
 
@@ -227,7 +213,7 @@ public class VertexJoint {
       y2=outterPointsSets.get((i+1) % M)[0].y;
       //caculate the control points
       if (outterPointsSets.size()==2) {
-        //IF this is a cornde
+        //IF this is a corner
         Vec2D tmp1=new Vec2D(x1, y1);
         Vec2D tmp2=new Vec2D(x2, y2);
         Line2D thisLine= new Line2D(tmp1, tmp2);
@@ -269,37 +255,26 @@ public class VertexJoint {
         //convert each point to a vector
         Vec2D p =new Vec2D(x, y); 
         allOutterPoihts.add(p);
-        //      println(p.toString());
-        //  ellipse(width/2, height/2, 5, 5);
-        //add that vector to outter polygon
         outter.add(p);
         //may need to add to a set and then add that set to the polygon
       }
     }
 
     if (outter.vertices.size()>4) {
-      //      linef(outter.vertices.size());
-      //    println(outter.vertices.get(0));
+
       Line2D l1=new Line2D(outter.vertices.get(1), outter.vertices.get(2));
       Line2D l2=new Line2D(outter.vertices.get(3), outter.vertices.get(4));
       Line2D.LineIntersection isec=l1.intersectLine(l2);
 
       if (isec.getType()==Line2D.LineIntersection.Type.INTERSECTING) {
-        //        println("X");
-
         Collections.swap(outter.vertices, 0, 1);
         Collections.swap(outter.vertices, 2, 3);
         Collections.swap(outter.vertices, 4, 5);
       }
       else {
-        //        println("O");
       }
     }
-    //    Iterator it = outter.vertices.iterator();
-    //    while(it.hasNext()){
-    //    
-    //      
-    //    }
+
   }
 }
 

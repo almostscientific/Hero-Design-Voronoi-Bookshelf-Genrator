@@ -56,20 +56,13 @@ class DataUpload
   /** Pushes binary data to server. */
   boolean UploadBinaryData(String fileName, String dataMimeType, byte[] data)
   {
-//    println("in upload bin data");
     try
     {
-//      println("in try");
-
       boolean isOK = StartPOSTRequest(fileName, dataMimeType);
-//      println(isOK);
       if (!isOK)
         return false;
-//      println("in about to write data");
-
       // Spit out the data bytes at once
       output.write(data, 0, data.length);  // throws IOException
-
       // And actually do the send (flush output and close it)
       EndPOSTRequest();
     }
@@ -89,7 +82,6 @@ class DataUpload
         }
       }
     }
-//println("done");
     return true;  // OK
   }
 
