@@ -46,6 +46,7 @@ public class FlatFace {
     flatFace.add( notchW );//c
     flatFace.add( notchH.add(notchW) );//b
     flatFace.add( notchH );//a
+    for (int t=1; t<180; t+=1) {
   }
 }
 

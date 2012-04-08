@@ -102,7 +102,6 @@ public class VertexJoint {
       stroke(blue);
       gfx.polygon2D(outter);
     }
-
   }
 
 
@@ -130,7 +129,17 @@ public class VertexJoint {
       b= outterNotchLine.b;
       c= b.add(outterNotchLine.getNormal().normalize().getInverted().scale(inchToPixel(notchH)));
       d= a.add(outterNotchLine.getNormal().normalize().getInverted().scale(inchToPixel(notchH)));
-      tabs.add(new Polygon2D(a, b, c, d));
+      List<Vec2D> pts=new ArrayList<Vec2D>();
+      pts.add(a);
+      pts.add(b);
+      pts.add(c);
+      pts.add(d);
+      if (router) {
+        tabs.add(dogBoneNotch(pts));
+      }
+      else {
+        tabs.add(new Polygon2D(a, b, c, d));
+      }
       //outter line
       Line2D outterLine=ive.getLine().copy().offsetAndGrowBy(inchToPixel(notchH)+inchToPixel(outterHeightOffset), inchToPixel(notchW)+inchToPixel(outterWidthOffset), thisNorm);
       outterLine.set(outterLine.a.add(V.v), outterLine.b.add(V.v));
@@ -274,7 +283,6 @@ public class VertexJoint {
       else {
       }
     }
-
   }
 }
 
