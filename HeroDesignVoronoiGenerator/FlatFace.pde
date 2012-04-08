@@ -32,21 +32,45 @@ public class FlatFace {
   }
 
   void build() {
-    flatFace.add( faceH.add(notchH).invert() );//n
-    flatFace.add( notchW.sub(faceH).sub(notchH) );//m
-    flatFace.add( notchW.sub(faceH) );//l
-    flatFace.add( faceW.sub(notchW).sub(faceH) );//k
-    flatFace.add( faceW.sub(notchW).sub(faceH).sub(notchH) );//j
-    flatFace.add( faceW.sub(faceH).sub(notchH) );//i
-    flatFace.add( faceW.sub(faceH) );//h
-    flatFace.add( faceW );//g
-    flatFace.add( faceW.add(notchH) );//f
-    flatFace.add( faceW.sub(notchW).add(notchH) );    //e
-    flatFace.add( faceW.sub(notchW) );//d
-    flatFace.add( notchW );//c
-    flatFace.add( notchH.add(notchW) );//b
-    flatFace.add( notchH );//a
+    List<Vec2D> arcPts=new ArrayList<Vec2D>();
     for (int t=1; t<180; t+=1) {
+      arcPts.add(new Vec2D().fromTheta(radians(t)).scale(inchToPixel(bitD/2)*drawScale));
+    }
+    println(arcPts.size());
+    Vec2D bitOff= new Vec2D().fromTheta(0).scale(inchToPixel(bitD/2)*drawScale);
+    
+    flatFace.add( faceH.add(notchH).invert() );//a
+    flatFace.add( notchW.sub(faceH).sub(notchH) );//b
+    flatFace.add( notchW.sub(faceH) );//c
+    if (router) {
+      println("NOTCHING");
+      Collections.reverse(arcPts);
+      for (Vec2D v :arcPts) {
+        flatFace.add(v.add(notchW.sub(faceH)).add(bitOff));
+      }
+      for (Vec2D v :arcPts) {
+        flatFace.add(v.add(faceW.sub(notchW).sub(faceH)).sub(bitOff));
+      }
+    }
+    flatFace.add( faceW.sub(notchW).sub(faceH) );//d
+    flatFace.add( faceW.sub(notchW).sub(faceH).sub(notchH) );//e
+    flatFace.add( faceW.sub(faceH).sub(notchH) );//f
+    flatFace.add( faceW.sub(faceH) );//g
+    flatFace.add( faceW );//h
+    flatFace.add( faceW.add(notchH) );//i
+    flatFace.add( faceW.sub(notchW).add(notchH) );    //j
+    flatFace.add( faceW.sub(notchW) );//k
+    if (router) {
+      for (Vec2D v :arcPts) {
+        flatFace.add(v.getRotated(PI).add(faceW.sub(notchW)).sub(bitOff));
+      }
+      for (Vec2D v :arcPts) {
+        flatFace.add(v.getRotated(PI).add( notchW).add(bitOff));
+      }
+    }
+    flatFace.add( notchW );//l
+    flatFace.add( notchH.add(notchW) );//m
+    flatFace.add( notchH );//n
   }
 }
 
