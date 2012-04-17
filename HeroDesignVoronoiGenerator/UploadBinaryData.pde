@@ -153,7 +153,7 @@ class DataUpload
 
   private boolean StartPOSTRequest(String fileName, String dataMimeType)
   {
-    println("in startpostrequest");
+    println("In startpostrequest");
     try
     {
       URL url = new URL(uploadURL); // throws MalformedURLException
