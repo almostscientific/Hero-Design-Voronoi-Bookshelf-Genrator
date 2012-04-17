@@ -1,5 +1,3 @@
-
-
 import java.net.*;
 import java.io.*;
 import javax.imageio.*;
@@ -85,87 +83,7 @@ class DataUpload
     return true;  // OK
   }
 
-  /** Pushes image to server. */
-//  boolean UploadImage(String fileName, BufferedImage image)
-//  {
-//    String imageType = null, imageMimeType = null;
-//    boolean bUseOtherMethod = false;
-//    if (fileName.endsWith("png"))
-//    {
-//      imageType = "png";
-//      imageMimeType = "image/png";
-//    }
-//    else if (fileName.endsWith("jpg"))
-//    {
-//      imageType = "jpg";
-//      imageMimeType = "image/jpeg";
-//    }
-//    else if (fileName.endsWith("jpeg"))
-//    {
-//      imageType = "jpeg";
-//      imageMimeType = "image/jpeg";
-//      bUseOtherMethod = true;
-//    }
-//    else
-//    {
-//      return false; // Unsupported image format
-//    }
-//
-//    try
-//    {
-//      boolean isOK = StartPOSTRequest(fileName, imageMimeType);
-//      if (!isOK)
-//        return false;
-//
-//      // Output the encoded image data
-//      if (!bUseOtherMethod)
-//      {
-//        // Uses the default method
-//        ImageIO.write(image, imageType, output);
-//      }
-//      else
-//      {
-//        // Alternative for better Jpeg quality control
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//
-//        java.util.Iterator iter = ImageIO.getImageWritersByFormatName(imageType);
-//        if (iter.hasNext())
-//        {
-//          ImageWriter writer = (ImageWriter) iter.next();
-//          ImageWriteParam iwp = writer.getDefaultWriteParam();
-//          iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-//          iwp.setCompressionQuality(1.0f);
-//
-//          ImageOutputStream ios = new MemoryCacheImageOutputStream(baos);
-//          writer.setOutput(ios);
-//          writer.write(image);
-//          byte[] b = baos.toByteArray();
-//          output.write(b, 0, b.length);
-//        }
-//      }
-//
-//      // And actually do the send (flush output and close it)
-//      EndPOSTRequest();
-//    }
-//    catch (Exception e)
-//    {
-//      e.printStackTrace();
-//      return false; // Problem
-//    }
-//    finally
-//    {
-//      if (output != null)
-//      {
-//        try { 
-//          output.close();
-//        } 
-//        catch (IOException ioe) {
-//        }
-//      }
-//    }
-//
-//    return true;  // OK
-//  }
+
 
   /** Reads output from server. */
   String GetServerFeedback()
@@ -235,8 +153,7 @@ class DataUpload
 
   private boolean StartPOSTRequest(String fileName, String dataMimeType)
   {
-//    println("in startpostrequest");
-
+    println("in startpostrequest");
     try
     {
       URL url = new URL(uploadURL); // throws MalformedURLException

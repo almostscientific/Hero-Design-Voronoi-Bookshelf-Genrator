@@ -382,49 +382,49 @@ boolean saveApplet() {
   }
 }
 
-//void saveApp() {
-//  println(fileName);
-//  if (fileName=="") {
-//    sendMsg("We need a file name before we can save it ...");
-//  }
-//  else {
-//    //  String fname=fileName;
-//    sendMsg("Yeah, let's save this one as "+fileName);
-//
-//    String[] writeString= new String[9];
-//
-//    List<String> ptsStrings=new ArrayList<String>();
-//    for (Vec2D p: pts) {
-//      ptsStrings.add(p.toString());
-//    }
-//    String[] arrayOfPts=ptsStrings.toArray(new String[ptsStrings.size()]); 
-//    String allPts;
-//    allPts=join(arrayOfPts, ";");
-//
-//    List<String> boundStrings=new ArrayList<String>();
-//    for (Vec2D bp: boundPts) {
-//      boundStrings.add(bp.toString());
-//    }
-//    String[] arrayOfBoundPts=boundStrings.toArray(new String[boundStrings.size()]); 
-//    String allBoundPts;
-//    allBoundPts=join(arrayOfBoundPts, ";");
-//
-//    writeString[0]=allPts;
-//    writeString[1]=allBoundPts;
-//    writeString[2]=nf(matThick, 0, 0);
-//    writeString[3]=nf(depth, 0, 0);
-//    writeString[4]=nf(cpLenModA, 0, 0);
-//    writeString[5]=nf(cpLenModB, 0, 0);
-//    writeString[6]=nf(boundScale, 0, 0);
-//    writeString[7]=nf(scaleFactor, 0, 0);
-//    writeString[8]=nf(PPI, 0, 0);
-//
-//    saveStrings(fileName, writeString);
-//  }
-//}
+void saveApp() {
+  println(fileName);
+  if (fileName=="") {
+    sendMsg("We need a file name before we can save it ...");
+  }
+  else {
+    //  String fname=fileName;
+    sendMsg("Yeah, let's save this one as "+fileName);
+
+    String[] writeString= new String[9];
+
+    List<String> ptsStrings=new ArrayList<String>();
+    for (Vec2D p: pts) {
+      ptsStrings.add(p.toString());
+    }
+    String[] arrayOfPts=ptsStrings.toArray(new String[ptsStrings.size()]); 
+    String allPts;
+    allPts=join(arrayOfPts, ";");
+
+    List<String> boundStrings=new ArrayList<String>();
+    for (Vec2D bp: boundPts) {
+      boundStrings.add(bp.toString());
+    }
+    String[] arrayOfBoundPts=boundStrings.toArray(new String[boundStrings.size()]); 
+    String allBoundPts;
+    allBoundPts=join(arrayOfBoundPts, ";");
+
+    writeString[0]=allPts;
+    writeString[1]=allBoundPts;
+    writeString[2]=nf(matThick, 0, 0);
+    writeString[3]=nf(depth, 0, 0);
+    writeString[4]=nf(cpLenModA, 0, 0);
+    writeString[5]=nf(cpLenModB, 0, 0);
+    writeString[6]=nf(boundScale, 0, 0);
+    writeString[7]=nf(scaleFactor, 0, 0);
+    writeString[8]=nf(PPI, 0, 0);
+
+    saveStrings(fileName, writeString);
+  }
+}
 
 void load() {
-    loadApplet();
+loadApplet();
 }
 
 void loadApplet() {
